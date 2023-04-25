@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { COLOR } from "../../../constants";
+import { COLOR } from "../../../constants"
 import { createStackNavigator } from "@react-navigation/stack";
 import { ScrollView } from "react-native-gesture-handler";
 import { Button, Chip } from "@rneui/themed";
@@ -16,13 +16,42 @@ const HomeAdmin: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
         style={{
           display: "flex",
           justifyContent: "space-evenly",
-          height: "80%",
+          height: "100%",
         }}
       >
         <View>
-          <Text>This is home admin lol</Text>
+        <Button
+            title="Validar Tareas"
+            icon={{
+              name: "checkmark-circle-outline",
+              type: "ionicon",
+              size: 30,
+              color: "white",
+            }}
+            iconRight
+            iconContainerStyle={{ marginLeft: 10 }}
+            titleStyle={{ fontWeight: "400", fontSize: 30 }}
+            buttonStyle={{
+              borderColor: "transparent",
+              borderWidth: 0,
+              padding: 30,
+              borderRadius: 10,
+            }}
+            ViewComponent={LinearGradient}
+            linearGradientProps={{
+              colors: ["#FFE347", "#FFE347"],
+              start: { x: 0, y: 0.5 },
+              end: { x: 1, y: 0.5 },
+            }}
+            containerStyle={{
+              width: "80%",
+              marginHorizontal: 50,
+              marginVertical: 25,
+            }}
+            onPress={() => navigation.navigate("Validate Admin")}
+          />
           <Button
-            title="Tareas pendientes"
+            title="Agregar Tareas"
             icon={{
               name: "clipboard-outline",
               type: "ionicon",
@@ -47,12 +76,12 @@ const HomeAdmin: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
             containerStyle={{
               width: "80%",
               marginHorizontal: 50,
-              marginVertical: 10,
+              marginVertical: 25,
             }}
-            onPress={() => navigation.navigate("Todos Screen")}
+            onPress={() => navigation.navigate("Add ToDos Screen")}
           />
           <Button
-            title="Ver Recompensas"
+            title="Agregar Recompensas"
             icon={{
               name: "star",
               type: "ionicon",
@@ -77,14 +106,13 @@ const HomeAdmin: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
             containerStyle={{
               width: "80%",
               marginHorizontal: 50,
-              marginVertical: 10,
+              marginVertical: 25,
             }}
-            onPress={() => navigation.navigate("Rewards Screen")}
+            onPress={() => navigation.navigate("Add Rewards Screen")}
           />
         </View>
       </View>
     </SafeAreaView>
   );
 };
-
 export default HomeAdmin;

@@ -7,6 +7,7 @@ import { COLOR } from "../constants";
 import Rewards from "../app/screens/Rewards";
 import ToDos from "../app/screens/ToDos";
 import HomeAdmin from "../app/screens/Admin/HomeAdmin";
+import ValidateAdmin from "../app/screens/Admin/ValidateAdmin";
 
 const Stack = createStackNavigator();
 
@@ -49,6 +50,18 @@ export default function AdminStack() {
           }}
           name="Rewards Screen"
           component={Rewards}
+        />
+
+        <Stack.Screen
+          options={{
+            headerStyle: {
+              backgroundColor: COLOR.lightBlue,
+            },
+            headerShadowVisible: false,
+            headerTitle: "",
+          }}
+          name="Validate Admin"
+          component={ValidateAdmin}
         />
       </Stack.Navigator>
     </NavigationContainer>
