@@ -8,21 +8,20 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-
+import { FONT } from "../../../constants";
+import { COLOR } from "../../../constants/theme";
 // Firebase authentication
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { Icon, Input } from "@rneui/base";
 import { Button, Chip } from "@rneui/themed";
 import { LinearGradient } from "expo-linear-gradient";
-import { FONT } from "../../constants";
-import { COLOR } from "../../constants/theme";
 const auth = getAuth();
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-const SignIn: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
+const SignInAdmin: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
   //Create useState to capture fields from inputs and auth user
   const [value, setValue] = useState({
     email: "",
@@ -59,15 +58,14 @@ const SignIn: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
         <View style={{ display: "flex" }}>
           <Pressable
             style={styles.adminLinkButton}
-            onPress={() => navigation.navigate("Sign In Admin")}
+            onPress={() => navigation.navigate("Sign In")}
           >
-            <Text style={styles.textBtnSignIn}>Entrar como administrador</Text>
+            <Text style={styles.textBtnSignIn}>Entrar como usuario</Text>
             <Icon
               style={{ marginLeft: 5 }}
-              name="shield"
+              name="user"
               type="feather"
-              color="#FFE347"
-              onPress={() => console.log("hello")}
+              color="#72D7F6"
             />
           </Pressable>
           <Text
@@ -81,9 +79,15 @@ const SignIn: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
             }}
           >
             Iniciar sesion
+            <Icon
+              style={{ marginLeft: 5 }}
+              name="user"
+              type="feather"
+              color="#72D7F6"
+            />
           </Text>
           <Text style={{ fontSize: 16, paddingTop: 5 }}>
-            Llena los campos para entrar y ganar recompensas haciendo tareas!.
+            Crea tareas de una manera sencilla y eficiente.
           </Text>
         </View>
 
@@ -155,7 +159,7 @@ const SignIn: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
             title="No tengo una cuenta"
             type="clear"
             titleStyle={{ color: "rgba(78, 116, 289, 1)" }}
-            onPress={() => navigation.navigate("Sign Up")}
+            onPress={() => navigation.navigate("Sign Up Admin")}
           />
         </View>
       </View>
@@ -163,7 +167,7 @@ const SignIn: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
   );
 };
 
-export default SignIn;
+export default SignInAdmin;
 
 const styles = StyleSheet.create({
   container: {

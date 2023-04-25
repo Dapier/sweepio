@@ -1,5 +1,7 @@
 const COLOR = {
   primary: "#",
+  white: "#F3F4F8",
+
   black: "#293241",
   lightBlue: "#EBF2FA",
 };
@@ -11,6 +13,15 @@ const FONT = {
   lightOpS: "OpSansLight",
   mediumOpS: "OpSansMedium",
   boldOpS: "OpSansBold",
+};
+
+const SIZES = {
+  xSmall: 10,
+  small: 12,
+  medium: 16,
+  large: 20,
+  xLarge: 24,
+  xxLarge: 32,
 };
 
 const SHADOWS = {
@@ -36,4 +47,4 @@ const SHADOWS = {
   },
 };
 
-export { COLOR, FONT, SHADOWS };
+export { COLOR, FONT, SHADOWS, SIZES };

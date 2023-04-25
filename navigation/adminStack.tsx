@@ -6,12 +6,12 @@ import List from "../app/screens/List";
 import { COLOR } from "../constants";
 import Rewards from "../app/screens/Rewards";
 import ToDos from "../app/screens/ToDos";
-import Tasks from "../app/screens/Tasks";
-import ScreenHeaderProfileBtn from "../components/common/header/ScreenHeaderProfileBtn";
+import HomeAdmin from "../app/screens/Admin/HomeAdmin";
 
 const Stack = createStackNavigator();
 
-export default function UserStack() {
+// Basically, if a user have a admin role, can see this screens
+export default function AdminStack() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -20,25 +20,23 @@ export default function UserStack() {
             headerStyle: {
               backgroundColor: COLOR.lightBlue,
             },
-            headerShadowVisible: true,
+            headerShadowVisible: false,
             headerTitle: "",
-            headerRight: () => <ScreenHeaderProfileBtn />,
           }}
-          name="Home Screen"
-          component={Home}
+          name="Home Screen Admin"
+          component={HomeAdmin}
         />
 
         <Stack.Screen
           options={{
             headerStyle: {
-              backgroundColor: "transparent",
+              backgroundColor: COLOR.lightBlue,
             },
             headerShadowVisible: false,
             headerTitle: "",
-            headerRight: () => <ScreenHeaderProfileBtn />,
           }}
-          name="User Tasks Screen"
-          component={Tasks}
+          name="Todos Screen"
+          component={ToDos}
         />
 
         <Stack.Screen

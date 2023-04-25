@@ -1,28 +1,26 @@
 import { View, Text } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { COLOR } from "../../constants";
-import Welcome from "../../components/common/home/welcome/Welcome";
+import { COLOR } from "../../../constants";
 import { createStackNavigator } from "@react-navigation/stack";
 import { ScrollView } from "react-native-gesture-handler";
 import { Button, Chip } from "@rneui/themed";
 import { LinearGradient } from "expo-linear-gradient";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-const Home: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
+const Stack = createStackNavigator();
+const HomeAdmin: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.lightBlue }}>
       <View
         style={{
           display: "flex",
-          justifyContent: "space-around",
-          height: "90%",
+          justifyContent: "space-evenly",
+          height: "80%",
         }}
       >
-        <View style={{ flex: 1, marginBottom: 100 }}>
-          <Welcome />
-        </View>
         <View>
+          <Text>This is home admin lol</Text>
           <Button
             title="Tareas pendientes"
             icon={{
@@ -51,7 +49,7 @@ const Home: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
               marginHorizontal: 50,
               marginVertical: 10,
             }}
-            onPress={() => navigation.navigate("User Tasks Screen")}
+            onPress={() => navigation.navigate("Todos Screen")}
           />
           <Button
             title="Ver Recompensas"
@@ -89,4 +87,4 @@ const Home: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
   );
 };
 
-export default Home;
+export default HomeAdmin;

@@ -14,7 +14,7 @@ import { Button, Input } from "@rneui/themed";
 
 // Firebase authentication
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { FIREBASE_AUTH, FIRESTORE_DB } from "../../firebaseConfig";
+import { FIREBASE_AUTH, FIRESTORE_DB } from "../../../firebaseConfig";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { collection, onSnapshot } from "firebase/firestore";
 
@@ -24,7 +24,7 @@ const screenHeight = Dimensions.get("window").height;
 
 export interface User {}
 
-const SignUp: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
+const SignUpAdmin: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
   //useState to capture fields from inputs and auth user
   const [value, setValue] = useState({
     email: "",
@@ -256,7 +256,7 @@ const SignUp: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
   );
 };
 
-export default SignUp;
+export default SignUpAdmin;
 
 const styles = StyleSheet.create({
   container: {
