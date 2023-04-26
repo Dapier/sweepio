@@ -11,7 +11,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 const Home: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.lightBlue }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.lightBlue }}> //Prueba
       <View
         style={{
           display: "flex",
