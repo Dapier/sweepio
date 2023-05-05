@@ -15,6 +15,17 @@ const Stack = createNativeStackNavigator();
 export default function AuthStack() {
   return (
     <NavigationContainer>
+      <Stack.Screen
+        options={{
+          headerStyle: {
+            backgroundColor: "transparent",
+          },
+          headerShadowVisible: true,
+          headerTitle: "",
+        }}
+        name="Home Screen"
+        component={Home}
+      />
       <Stack.Navigator>
         <Stack.Screen
           name="Sign In"

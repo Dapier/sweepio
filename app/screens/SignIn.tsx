@@ -131,6 +131,35 @@ const SignIn: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
             Entrar
           </Button>
 
+          <View
+            style={{
+              flexDirection: "row",
+              marginTop: 10,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <View
+              style={{
+                width: screenWidth / 3,
+                backgroundColor: "#1C1C1C",
+                height: 0.5,
+                alignContent: "center",
+                marginRight: 20,
+              }}
+            ></View>
+            <Text>O</Text>
+            <View
+              style={{
+                width: screenWidth / 3,
+                backgroundColor: "#1C1C1C",
+                height: 0.5,
+                alignContent: "center",
+                marginLeft: 20,
+              }}
+            ></View>
+          </View>
+
           <Button
             title="Iniciar sesion con Google"
             buttonStyle={{

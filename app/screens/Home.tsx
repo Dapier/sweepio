@@ -1,17 +1,19 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { COLOR } from "../../constants";
+import { COLOR, SIZES } from "../../constants";
 import Welcome from "../../components/common/home/welcome/Welcome";
 import { createStackNavigator } from "@react-navigation/stack";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { Button, Chip } from "@rneui/themed";
 import { LinearGradient } from "expo-linear-gradient";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { Icon } from "@rneui/base";
+import { SHADOWS } from "../../constants/theme";
 
 const Home: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.lightBlue }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.white }}>
       <View
         style={{
           display: "flex",
@@ -20,6 +22,12 @@ const Home: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
         }}
       >
         <View style={{ flex: 1, marginBottom: 100 }}>
+          <TouchableOpacity
+            style={styles.btnContainer}
+            onPress={() => navigation.navigate("User Account Screen")}
+          >
+            <Icon name="user" type="feather" color="#72D7F6" />
+          </TouchableOpacity>
           <Welcome />
         </View>
         <View>
@@ -90,3 +98,18 @@ const Home: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
 };
 
 export default Home;
+
+const styles = StyleSheet.create({
+  btnContainer: {
+    width: 50,
+    height: 50,
+    display: "flex",
+    marginTop: 15,
+    marginRight: 15,
+    backgroundColor: COLOR.white,
+    borderRadius: SIZES.xLarge / 1.25,
+    justifyContent: "center",
+    alignItems: "center",
+    ...SHADOWS.large,
+  },
+});

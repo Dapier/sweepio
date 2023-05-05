@@ -1,7 +1,7 @@
 const COLOR = {
-  primary: "#",
-  white: "#F3F4F8",
-
+  primary: "#3E1FFF",
+  white: "#FFF",
+  starYellow: "#FFE347",
   black: "#293241",
   lightBlue: "#EBF2FA",
 };
@@ -44,6 +44,16 @@ const SHADOWS = {
     shadowOpacity: 0.25,
     shadowRadius: 5.84,
     elevation: 5,
+  },
+  large: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 2,
+      height: 9,
+    },
+    shadowOpacity: 0.55,
+    shadowRadius: 6.84,
+    elevation: 9,
   },
 };
 
