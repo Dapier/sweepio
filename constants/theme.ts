@@ -4,6 +4,7 @@ const COLOR = {
   starYellow: "#FFE347",
   black: "#293241",
   lightBlue: "#EBF2FA",
+  redDanger: "#EF767A",
 };
 
 const FONT = {

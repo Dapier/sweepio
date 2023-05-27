@@ -11,19 +11,19 @@ interface ScreenHeaderProfileBtnProps {
   
 }
 
-const ScreenHeaderProfileBtn =  ({screenName}) => {
+const ScreenHeaderAdminProfileBtn =  ({screenName}) => {
 const navigation = useNavigation()
   return (
     <TouchableOpacity
       style={styles.btnContainer}
       onPress={()=> navigation.navigate(screenName)}
     >
-      <Icon name="user" type="feather" color="#72D7F6" />
+      <Icon name="shield" type="feather" color="#72D7F6" />
     </TouchableOpacity>
   );
 };
 
-export default ScreenHeaderProfileBtn;
+export default ScreenHeaderAdminProfileBtn;
 
 const styles = StyleSheet.create({
   btnContainer: {

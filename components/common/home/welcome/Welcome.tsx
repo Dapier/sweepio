@@ -6,7 +6,11 @@ const Welcome = ({}) => {
   return (
     <View>
       <View style={styles.container}>
-        <Image source={images.star} resizeMode="contain" />
+        <Image
+          source={images.star}
+          resizeMode="contain"
+          style={{ width: 200, height: 200 }}
+        />
         <Text style={styles.welcomeText}>
           Completa tareas simples para conseguir estrellas y recibir premios!
         </Text>

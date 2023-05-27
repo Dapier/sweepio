@@ -16,37 +16,41 @@ import { Button, Input } from "@rneui/themed";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { FIREBASE_AUTH, FIRESTORE_DB } from "../../firebaseConfig";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
-import { collection, onSnapshot } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  onSnapshot,
+  setDoc,
+} from "firebase/firestore";
+import { Pressable } from "react-native";
+import { COLOR, FONT } from "../../constants";
+import { Chip, Icon } from "@rneui/base";
 
 // Get dimensions of device
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
-export interface User {}
+export interface User {
+  username: string;
+  email: string;
+  id: string;
+  areAdmin: boolean;
+  points: number;
+  groupCode: string;
+}
 
 const SignUp: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
   //useState to capture fields from inputs and auth user
   const [value, setValue] = useState({
+    userName: "",
     email: "",
-    username: "",
     password: "",
     confirmPassword: "",
+    groupCode: "",
     error: "",
+    points: 0,
   });
-
-  // useEffect(() => {
-  //   const userRef = collection(FIRESTORE_DB, "users");
-
-  //   const suscriber = onSnapshot(userRef, {
-  //     next: (snapshot) => {
-  //       const users: User[] = [];
-  //     },
-  //   });
-
-  //   return () => {
-  //     second;
-  //   };
-  // }, [third]);
 
   async function handleFormSignUp() {
     if (value.email === "" || value.password === "") {
@@ -57,161 +61,117 @@ const SignUp: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
       return;
     }
 
-    //if doesnt error (validation passed)
-    //once validation are passed, create a new account
+    // if validation passed, create a new account
     try {
-      await createUserWithEmailAndPassword(
+      const credentials = await createUserWithEmailAndPassword(
         FIREBASE_AUTH,
         value.email,
         value.password
       );
-      //push to Home screen
-      navigation.navigate("List");
+
+      // Create a new user document in the "users" collection
+      const userDocRef = doc(FIRESTORE_DB, "users", credentials.user.uid);
+      await setDoc(userDocRef, {
+        userName: value.userName,
+        email: value.email,
+        points: value.points,
+        groupCode: "",
+      });
+
+      setValue({ ...value });
+
+      // Push to Home screen
+      navigation.navigate("Home Screen");
     } catch (error) {
       setValue({
         ...value,
-        error: error instanceof Error ? error.message : "Unknow error",
+        error: error instanceof Error ? error.message : "Unknown error",
       });
     }
   }
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <KeyboardAvoidingView style={styles.container} behavior="height">
       <View style={{ marginTop: 200, paddingRight: 20 }}>
         {/*Title & Subtitle*/}
-        <Text
-          style={{
-            fontSize: 50,
-            fontWeight: "bold",
-            textAlign: "right",
-          }}
-        >
-          Registrarse
-        </Text>
+        <View style={{ display: "flex" }}>
+          <Pressable
+            style={styles.adminLinkButton}
+            onPress={() => navigation.navigate("Sign In Admin")}
+          >
+            <Text style={styles.textBtnSignIn}>Entrar como administrador</Text>
+            <Icon
+              style={{ marginLeft: 5 }}
+              name="shield"
+              type="feather"
+              color="#FFE347"
+              onPress={() => console.log("Sign In Admin")}
+            />
+          </Pressable>
+          {!!value.error && <Chip title={"Favor de llenar todos los campos"} />}
+          <Text
+            style={{
+              marginTop: 10,
+              fontSize: 50,
+              fontWeight: "bold",
+              textAlign: "right",
+              color: COLOR.black,
+              fontFamily: FONT.boldNun,
+            }}
+          >
+            Registrarse
+          </Text>
+          <Text style={{ fontSize: 16, paddingTop: 5, textAlign: "right" }}>
+            Registrate y recibe recompensas por realizar tareas!
+          </Text>
+        </View>
+
         {!!value.error && (
           <View>
             <Text>{value.error}</Text>
           </View>
         )}
-        <View style={{ width: screenWidth * 0.9, marginTop: 10 }}>
-          <Text
-            style={{
-              color: "black",
-              left: 20,
-              marginTop: 0,
-              marginBottom: 0,
-            }}
-          >
-            Username
-          </Text>
-        </View>
-        <TextInput
-          style={{
-            height: 50,
-            width: screenWidth * 0.9,
-            borderColor: "#1C1C1C",
-            borderWidth: 1,
-            color: "black",
-            paddingHorizontal: 20,
-            margin: 20,
-            marginBottom: 0,
-          }}
-          placeholderTextColor={"rgba(0, 0, 0, 0.5)"}
-          placeholder={"Your username"}
-          //Capture data, its something like  keylogger
-          value={value.username}
-          onChangeText={(e) => setValue({ ...value, username: e })}
-        />
 
-        {/* Email Field */}
-        <View style={{ width: screenWidth * 0.9, marginTop: 10 }}>
-          <Text
-            style={{
-              color: "black",
-              left: 20,
-              marginTop: 5,
-              marginBottom: 0,
-            }}
-          >
-            Email
-          </Text>
-        </View>
-
-        <TextInput
-          style={{
-            height: 50,
-            width: screenWidth * 0.9,
-            borderColor: "#1C1C1C",
-            borderWidth: 1,
-            color: "black",
-            paddingHorizontal: 20,
-            margin: 20,
-            marginBottom: 0,
-          }}
-          placeholderTextColor={"rgba(0, 0, 0, 0.5)"}
-          placeholder={"example@gmail.com"}
-          value={value.email}
-          onChangeText={(e) => setValue({ ...value, email: e })}
-        />
-
-        {/* Password section */}
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ flexDirection: "column" }}>
-            {/* Password Field */}
-            <View style={{ width: screenWidth * 0.3, marginTop: 10 }}>
-              <Text style={{ color: "black", left: 20, marginTop: 5 }}>
-                Password
-              </Text>
-            </View>
-
-            <TextInput
-              style={{
-                height: 50,
-                width: screenWidth * 0.4,
-                borderColor: "#1C1C1C",
-                borderWidth: 1,
-                color: "black",
-                paddingHorizontal: 20,
-                margin: 20,
-              }}
-              secureTextEntry={true}
-              placeholderTextColor={"rgba(0, 0, 0, 0.5)"}
-              placeholder={"At least 5 characters"}
-              value={value.password}
-              onChangeText={(e) => setValue({ ...value, password: e })}
+        {/* Sign Up Form */}
+        <View style={styles.container}>
+          <View style={{ width: screenWidth * 0.9, marginTop: 50 }}>
+            <Input
+              placeholder="Nombre de usuario"
+              containerStyle={{}}
+              value={value.userName}
+              onChangeText={(text) => setValue({ ...value, userName: text })}
             />
-          </View>
 
-          <View style={{ flexDirection: "column" }}>
-            {/* Repeat Password */}
-            <View style={{ width: screenWidth * 0.3, marginTop: 10 }}>
-              <Text style={{ color: "black", left: 20, marginTop: 5 }}>
-                Confirm Password
-              </Text>
-            </View>
+            <Input
+              placeholder="Tu correo"
+              containerStyle={{}}
+              value={value.email}
+              onChangeText={(text) => setValue({ ...value, email: text })}
+            />
 
-            <TextInput
-              style={{
-                height: 50,
-                width: screenWidth * 0.4,
-                borderColor: "#1C1C1C",
-                borderWidth: 1,
-                color: "black",
-                paddingHorizontal: 20,
-                margin: 20,
-              }}
+            <Input
+              placeholder="Tu contraseña"
+              value={value.password}
+              onChangeText={(text) => setValue({ ...value, password: text })}
               secureTextEntry={true}
-              placeholderTextColor={"rgba(0, 0, 0, 0.5)"}
-              placeholder={"Repeat password"}
+              showSoftInputOnFocus={true}
+            />
+
+            {/* Confirm password */}
+            <Input
+              placeholder="Confirmar contraseña"
               value={value.confirmPassword}
-              onChangeText={(e) => setValue({ ...value, confirmPassword: e })}
-              // onChangeText={input=>this.setState({repeat: input})}
-              //   value={this.state.repeat}
+              onChangeText={(text) =>
+                setValue({ ...value, confirmPassword: text })
+              }
+              secureTextEntry={true}
+              showSoftInputOnFocus={true}
             />
           </View>
         </View>
 
         {/* Sign Up Button */}
+
         <View
           style={{
             width: screenWidth,
@@ -220,16 +180,17 @@ const SignUp: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
           }}
         >
           <Button
+            titleStyle={{ color: COLOR.white }}
+            buttonStyle={{ width: screenWidth * 0.9, height: 60 }}
             containerStyle={{
-              height: 40,
               width: screenWidth * 0.9,
               marginHorizontal: 50,
               marginVertical: 10,
-              borderRadius: 5,
+              borderRadius: 25,
             }}
             ViewComponent={LinearGradient} // Don't forget this!
             linearGradientProps={{
-              colors: ["#8093F1", "#72DDF7"],
+              colors: ["#8093F1", "#3E1FFF"],
               start: { x: 0, y: 0.5 },
               end: { x: 1, y: 0.5 },
             }}
@@ -260,9 +221,28 @@ export default SignUp;
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: COLOR.white,
     justifyContent: "center",
     alignItems: "center",
-    flex: 1,
+    paddingBottom: 40,
+  },
+  adminLinkButton: {
+    position: "absolute",
+    right: 30,
+    top: -100,
+    maxHeight: 50,
+    maxWidth: 260,
+    paddingHorizontal: 40,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 5,
+    borderRadius: 30,
+    elevation: 3,
+    height: 50,
+    color: "#FFFFFF",
+    backgroundColor: "#3E1FFF",
   },
   controls: {
     flex: 1,
@@ -270,6 +250,13 @@ const styles = StyleSheet.create({
   },
   control: {
     marginTop: 10,
+  },
+  textBtnSignIn: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "white",
   },
   error: {
     marginTop: 10,

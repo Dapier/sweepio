@@ -13,12 +13,12 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Icon } from "@rneui/base";
 import { StyleSheet } from "react-native";
+import SignIn from "../app/screens/SignIn";
+import TaskDetail from "../app/screens/TaskDetail";
 
 const Stack = createStackNavigator();
 
-type Props = NativeStackScreenProps<"">;
-
-export default function UserStack({ navigation }: Props) {
+export default function UserStack() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -30,7 +30,9 @@ export default function UserStack({ navigation }: Props) {
             headerShadowVisible: true,
             headerTitle: "",
             cardStyle: { backgroundColor: "#fff" },
-            headerRight: () => <ScreenHeaderProfileBtn />,
+            headerRight: () => (
+              <ScreenHeaderProfileBtn screenName={"User Account Screen"} />
+            ),
           }}
           name="Home Screen"
           component={Home}
@@ -43,6 +45,9 @@ export default function UserStack({ navigation }: Props) {
             },
             headerShadowVisible: false,
             headerTitle: "",
+            headerRight: () => (
+              <ScreenHeaderProfileBtn screenName={"User Account Screen"} />
+            ),
             cardStyle: { backgroundColor: "#fff" },
           }}
           name="User Tasks Screen"
@@ -56,7 +61,9 @@ export default function UserStack({ navigation }: Props) {
             },
             headerShadowVisible: false,
             headerTitle: "",
-            headerRight: () => <ScreenHeaderProfileBtn />,
+            headerRight: () => (
+              <ScreenHeaderProfileBtn screenName={"User Account Screen"} />
+            ),
             cardStyle: { backgroundColor: "#fff" },
           }}
           name="Rewards Screen"
@@ -82,11 +89,35 @@ export default function UserStack({ navigation }: Props) {
             headerShadowVisible: false,
             headerTitle: "",
             cardStyle: { backgroundColor: "#fff" },
+            headerRight: () => (
+              <ScreenHeaderProfileBtn screenName={"User Account Screen"} />
+            ),
           }}
           name="ToDo Screen"
           component={List}
         />
-        
+
+        <Stack.Screen
+          options={{
+            headerStyle: {
+              backgroundColor: "transparent",
+            },
+            headerShadowVisible: false,
+            headerTitle: "",
+            cardStyle: { backgroundColor: "#fff" },
+            headerRight: () => (
+              <ScreenHeaderProfileBtn screenName={"User Account Screen"} />
+            ),
+          }}
+          name="Task Detail Screen"
+          component={TaskDetail}
+        />
+
+        <Stack.Screen
+          name="Sign In"
+          component={SignIn}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

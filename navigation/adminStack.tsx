@@ -7,6 +7,15 @@ import { COLOR } from "../constants";
 import Rewards from "../app/screens/Rewards";
 import ToDos from "../app/screens/ToDos";
 import HomeAdmin from "../app/screens/Admin/HomeAdmin";
+import ScreenHeaderProfileBtn from "../components/common/header/ScreenHeaderProfileBtn";
+import ScreenHeaderAdminProfileBtn from "../components/common/header/ScreenHeaderAdminProfileBtn";
+import AddRewards from "../app/screens/Admin/AddRewards";
+import ValidateTasks from "../app/screens/Admin/ValidateTasks";
+import AddTasks from "../app/screens/Admin/AddTasks";
+import UserAccount from "../app/screens/UserAccount";
+import AdminAccount from "../app/screens/Admin/AdminAccount";
+import TaskDetails from "../app/screens/tasks_details/[id]";
+import TaskDetailAdmin from "../app/screens/Admin/TaskDetailAdmin";
 
 const Stack = createStackNavigator();
 
@@ -18,10 +27,15 @@ export default function AdminStack() {
         <Stack.Screen
           options={{
             headerStyle: {
-              backgroundColor: COLOR.lightBlue,
+              backgroundColor: COLOR.white,
             },
             headerShadowVisible: false,
             headerTitle: "",
+            headerRight: () => (
+              <ScreenHeaderAdminProfileBtn
+                screenName={"Admin Account Screen"}
+              />
+            ),
           }}
           name="Home Screen Admin"
           component={HomeAdmin}
@@ -30,25 +44,78 @@ export default function AdminStack() {
         <Stack.Screen
           options={{
             headerStyle: {
-              backgroundColor: COLOR.lightBlue,
+              backgroundColor: COLOR.white,
             },
             headerShadowVisible: false,
             headerTitle: "",
+            headerRight: () => (
+              <ScreenHeaderAdminProfileBtn
+                screenName={"Admin Account Screen"}
+              />
+            ),
           }}
-          name="Todos Screen"
-          component={ToDos}
+          name="Validate Tasks Screen"
+          component={ValidateTasks}
         />
 
         <Stack.Screen
           options={{
             headerStyle: {
-              backgroundColor: "transparent",
+              backgroundColor: COLOR.white,
             },
             headerShadowVisible: false,
             headerTitle: "",
+            headerRight: () => (
+              <ScreenHeaderAdminProfileBtn
+                screenName={"Admin Account Screen"}
+              />
+            ),
           }}
-          name="Rewards Screen"
-          component={Rewards}
+          name="Add Tasks Screen"
+          component={AddTasks}
+        />
+
+        <Stack.Screen
+          options={{
+            headerStyle: {
+              backgroundColor: COLOR.white,
+            },
+            headerShadowVisible: false,
+            headerTitle: "",
+            headerRight: () => (
+              <ScreenHeaderAdminProfileBtn
+                screenName={"Admin Account Screen"}
+              />
+            ),
+          }}
+          name="Add Rewards Screen"
+          component={AddRewards}
+        />
+
+        <Stack.Screen
+          options={{
+            headerStyle: {
+              backgroundColor: COLOR.white,
+            },
+            headerShadowVisible: false,
+            headerTitle: "",
+            cardStyle: { backgroundColor: "#fff" },
+          }}
+          name="Admin Account Screen"
+          component={AdminAccount}
+        />
+
+        <Stack.Screen
+          options={{
+            headerStyle: {
+              backgroundColor: COLOR.white,
+            },
+            headerShadowVisible: false,
+            headerTitle: "",
+            cardStyle: { backgroundColor: "#fff" },
+          }}
+          name="Admin Task Details"
+          component={TaskDetailAdmin}
         />
       </Stack.Navigator>
     </NavigationContainer>

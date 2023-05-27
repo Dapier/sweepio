@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import List from "./app/screens/List";
-import Details from "./app/screens/Details";
+import Details from "./app/screens/TaskDetail";
 import RootNavigation from "./navigation";
 import { useFonts } from "expo-font";
 import { useCallback, useEffect } from "react";
@@ -26,7 +26,3 @@ export default function App() {
 
   return <RootNavigation />;
 }
-
-const styles = StyleSheet.create({
-  container: {},
-});

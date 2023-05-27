@@ -9,13 +9,14 @@ import {
 import React, { useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FONT } from "../../../constants";
-import { COLOR } from "../../../constants/theme";
+import { COLOR, SHADOWS } from "../../../constants/theme";
 // Firebase authentication
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { Icon, Input } from "@rneui/base";
 import { Button, Chip } from "@rneui/themed";
 import { LinearGradient } from "expo-linear-gradient";
+import { useAutentication } from "../../../utils/useAuthentication";
 const auth = getAuth();
 
 const screenWidth = Dimensions.get("window").width;
@@ -28,8 +29,9 @@ const SignInAdmin: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
     password: "",
     error: "",
   });
+  const user = getAuth().currentUser?.uid;
 
-  async function handleFormSignIn() {
+  async function handleFormSignInAdmin() {
     if (value.email === "" || value.password === "") {
       setValue({
         ...value,
@@ -43,7 +45,7 @@ const SignInAdmin: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
     try {
       await signInWithEmailAndPassword(auth, value.email, value.password);
       //push to Home screen
-      navigation.navigate("Home Screen");
+      navigation.navigate("Home Screen Admin");
     } catch (error) {
       setValue({
         ...value,
@@ -68,24 +70,34 @@ const SignInAdmin: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
               color="#72D7F6"
             />
           </Pressable>
-          <Text
+          <View
             style={{
-              marginTop: 50,
-              fontSize: 50,
-              fontWeight: "bold",
-              textAlign: "left",
-              color: COLOR.black,
-              fontFamily: FONT.boldNun,
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              width: "90%",
             }}
           >
-            Iniciar sesion
+            <Text
+              style={{
+                marginTop: 50,
+                fontSize: 50,
+                fontWeight: "bold",
+                textAlign: "left",
+                color: COLOR.black,
+                fontFamily: FONT.boldNun,
+              }}
+            >
+              Iniciar sesion
+            </Text>
             <Icon
-              style={{ marginLeft: 5 }}
-              name="user"
-              type="feather"
-              color="#72D7F6"
+              raised
+              name="crown"
+              color={COLOR.starYellow}
+              type="foundation"
+              size={20}
             />
-          </Text>
+          </View>
           <Text style={{ fontSize: 16, paddingTop: 5 }}>
             Crea tareas de una manera sencilla y eficiente.
           </Text>
@@ -94,6 +106,10 @@ const SignInAdmin: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
         <View>
           <View style={{ width: screenWidth * 0.9, marginTop: 50 }}>
             <Input
+              rightIcon={{
+                type: "material-community",
+                name: "email",
+              }}
               placeholder="Tu correo"
               containerStyle={{}}
               value={value.email}
@@ -101,6 +117,10 @@ const SignInAdmin: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
             />
 
             <Input
+              rightIcon={{
+                type: "material-community",
+                name: "lock",
+              }}
               placeholder="Tu contraseña"
               value={value.password}
               onChangeText={(text) => setValue({ ...value, password: text })}
@@ -117,20 +137,21 @@ const SignInAdmin: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
           }}
         >
           <Button
+            titleStyle={{ color: COLOR.white }}
+            buttonStyle={{ width: screenWidth * 0.9, height: 60 }}
             containerStyle={{
-              height: 40,
               width: screenWidth * 0.9,
               marginHorizontal: 50,
               marginVertical: 10,
-              borderRadius: 5,
+              borderRadius: 25,
             }}
             ViewComponent={LinearGradient} // Don't forget this!
             linearGradientProps={{
-              colors: ["#8093F1", "#72DDF7"],
+              colors: ["#8093F1", "#3E1FFF"],
               start: { x: 0, y: 0.5 },
               end: { x: 1, y: 0.5 },
             }}
-            onPress={handleFormSignIn}
+            onPress={handleFormSignInAdmin}
           >
             Entrar
           </Button>
@@ -171,6 +192,7 @@ export default SignInAdmin;
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: COLOR.white,
     justifyContent: "center",
     alignItems: "center",
     flex: 1,

@@ -67,7 +67,6 @@ const SignIn: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
               name="shield"
               type="feather"
               color="#FFE347"
-              onPress={() => console.log("hello")}
             />
           </Pressable>
           <Text
@@ -101,6 +100,7 @@ const SignIn: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
               value={value.password}
               onChangeText={(text) => setValue({ ...value, password: text })}
               secureTextEntry={true}
+              showSoftInputOnFocus={true}
             />
           </View>
         </View>
@@ -113,16 +113,17 @@ const SignIn: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
           }}
         >
           <Button
+            titleStyle={{ color: COLOR.white }}
+            buttonStyle={{ width: screenWidth * 0.9, height: 60 }}
             containerStyle={{
-              height: 40,
               width: screenWidth * 0.9,
               marginHorizontal: 50,
               marginVertical: 10,
-              borderRadius: 5,
+              borderRadius: 25,
             }}
             ViewComponent={LinearGradient} // Don't forget this!
             linearGradientProps={{
-              colors: ["#8093F1", "#72DDF7"],
+              colors: ["#5C58DB", "#4D93DB"],
               start: { x: 0, y: 0.5 },
               end: { x: 1, y: 0.5 },
             }}
@@ -131,7 +132,7 @@ const SignIn: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
             Entrar
           </Button>
 
-          <View
+          {/* <View
             style={{
               flexDirection: "row",
               marginTop: 10,
@@ -173,7 +174,7 @@ const SignIn: React.FC<NativeStackScreenProps<any>> = ({ navigation }) => {
               marginHorizontal: 50,
               marginVertical: 10,
             }}
-          />
+          /> */}
 
           <Button
             containerStyle={{
@@ -196,6 +197,7 @@ export default SignIn;
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: COLOR.white,
     justifyContent: "center",
     alignItems: "center",
     flex: 1,
